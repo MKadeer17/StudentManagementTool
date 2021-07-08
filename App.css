@@ -1,0 +1,111 @@
+.studentTable {
+  position: relative;
+  height: 850px;
+  margin: 25px 20px 5px 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: center;
+  text-align: center;
+  font-weight: 500;
+  border: 3px solid rgb(158, 158, 158);
+  border-radius: 25px;
+  box-shadow: 0px 23px 13px -5px rgba(0,0,0,0.75);
+  -webkit-box-shadow: 0px 23px 13px -5px rgba(0,0,0,0.75);
+  -moz-box-shadow: 0px 23px 13px -5px rgba(0,0,0,0.75);
+}
+
+table {
+  margin: 0px 4px 0px 3px;
+}
+
+th {
+  color: rgb(100, 100, 100);
+}
+
+.studentTable__address {
+  overflow: hidden;
+  text-align: left;
+  text-overflow: ellipsis;
+}
+
+.studentTable__image > a > img {
+  object-fit: contain;
+  max-height: 50px;
+}
+
+.studentTable__add {
+  position: absolute;
+  bottom: 0;
+  margin: 10px 20px;
+  align-self: flex-start;
+}
+
+.studentAddForm {
+  margin: 80px 180px;
+  display: flex;
+  flex-direction: column;
+  border: 5px solid rgb(170, 170, 170);
+  border-radius: 10px;
+  box-shadow: 0px 23px 13px -5px rgba(0,0,0,0.75);
+  -webkit-box-shadow: 0px 23px 13px -5px rgba(0,0,0,0.75);
+  -moz-box-shadow: 0px 23px 13px -5px rgba(0,0,0,0.75);
+}
+
+.studentAddForm > h2 {
+  text-align: center;
+}
+
+.pageNotFound {
+  height: 850px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.pageNotFound > img {
+  object-fit: contain;
+  height: 450px;
+}
+
+.studentEditForm {
+  height: 850px;
+  margin: 20px 200px;
+  display: flex;
+  flex-direction: column;
+  justify-content: top;
+  align-items: center;
+  border: 5px solid rgb(170, 170, 170);
+  border-radius: 10px;
+  box-shadow: 0px 23px 13px -5px rgba(0,0,0,0.75);
+  -webkit-box-shadow: 0px 23px 13px -5px rgba(0,0,0,0.75);
+  -moz-box-shadow: 0px 23px 13px -5px rgba(0,0,0,0.75); 
+  overflow: scroll;
+  gap: 25px;
+}
+
+.studentEditForm::-webkit-scrollbar {
+  display: none;
+}
+
+.studentEditForm {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.formUpdateImage {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  object-fit: contain;
+  height: 350px;
+}
+
+.btn {
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+
+.btnUploadHome {
+  margin-left: 320px;
+}
