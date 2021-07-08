@@ -1,10 +1,11 @@
 # StudentManagementTool
-Project Task Is Done Using: ReactJS+NodeJS+MySql
 ----
-#Run the NodeJSServer First:
+## Project Task Is Done Using: ReactJS+NodeJS+MySql
 ----
-Command: # npm run devStart
+### Run the NodeJS Server First:
+---
+**npm run devStart**
 ----
-#For React JS
+### For React JS
 ----
-Command: #npm start
+Command: **npm start**
