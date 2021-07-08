@@ -4,7 +4,7 @@
 ----
 ### Run the NodeJS Server First:
 ---
-**npm run devStart**
+Command **npm run devStart**
 ----
 ### For React JS
 ----
