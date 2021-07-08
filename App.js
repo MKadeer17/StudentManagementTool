@@ -17,11 +17,10 @@ function App() {
   const [studentList, setStudentList] = useState(null);
 
   useEffect(() => {
-    axios.get('http://localhost:3007/api/get').then((res) => {
-      // console.log(res.data);
-      setStudentList(res.data);
-    })
-  }, []);
+      axios.get('http://localhost:3007/api/get').then((res) => {
+        setStudentList(res.data);
+      })
+  });
 
   return (
     <Router>

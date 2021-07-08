@@ -1,11 +1,13 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import { Link, useHistory, useParams } from 'react-router-dom';
-import { CFormControl, CFormFloating, CForm, CFormLabel, CButton, CFormSelect, CFormCheck, CCol} from '@coreui/react'
+import { CFormControl, CFormFloating, CForm, CFormLabel, CButton, CFormSelect, CFormCheck, CCol, CModal, 
+    CModalHeader, CModalTitle, CModalBody, CModalFooter} from '@coreui/react'
 
 function UpdateStudent() {
     const { id } = useParams();
     const history = useHistory();
+    const [modal, setModal] = useState(false);
     const grades = ["O", "A+", "A", "B+", "B", "C+", "C", "D+", "D", "F"];
     const [studentNewData, setStudentNewData] = useState({
         firstName: '',
@@ -16,7 +18,8 @@ function UpdateStudent() {
         email: '',
         phone: '',
         address: '',
-        image_name: null
+        image_name: '',
+        image_path: null
       });
 
     useEffect(() => {
@@ -60,7 +63,7 @@ function UpdateStudent() {
 
              // For Image Upload
              const data = new FormData();
-             data.append('file', studentNewData.image_name);
+             data.append('file', studentNewData.image_path);
              axios.post("http://localhost:3007/api/upload", data, { // receive two parameter endpoint url ,form data 
              })
              .then(res => { // then print response status
@@ -72,25 +75,30 @@ function UpdateStudent() {
         }
     }
 
+    console.log(studentNewData);
+
     // For Deactive
     const onDeactiveOrActive = () => {
-        let answer = prompt("Are You want to Deactivate? Y / N");
-        if (answer.toLocaleUpperCase() === "Y") {
-            axios.post(`http://localhost:3007/api/deactiveStudent`, {
-                id: id
-            })
-            .then((res) => history.push('/'))
-            .catch((err) => console.log(err.message))
-        }
-        else {
-            alert('Ok');
-        }
+        axios.post(`http://localhost:3007/api/deactiveStudent`, {
+            id: id
+        })
+        .then((res) => history.push('/'))
+        .catch((err) => console.log(err.message))
     }
 
     return (
         <div className="studentEditForm">
             <h2>Update Student</h2>
-            <CButton color="warning" onClick={onDeactiveOrActive}>Deactivate/Active</CButton>
+            <CButton color="warning" onClick={() => setModal(true)}>Deactivate/Active</CButton>
+            <img className="formUpdateImage" src={`http://localhost:3007/${studentNewData?.image_name}`} alt={studentNewData?.image_name} />
+            <CFormFloating>
+                <CFormControl
+                    onChange={(e) => setStudentNewData({...studentNewData, image_path: e.target.files[0], image_name: e.target.files[0].name})}
+                    type="file"
+                    id="imagePath"
+                />
+                <CFormLabel htmlFor="imagePath" />
+            </CFormFloating>
             <CForm className="studentEditForm__data">
                 <CFormFloating className="mb-3">
                     <CFormControl
@@ -203,18 +211,23 @@ function UpdateStudent() {
                     ></CFormControl>
                     <CFormLabel htmlFor="address">Address</CFormLabel>
                 </CFormFloating>
-                <img className="formUpdateImage" src={`http://localhost:3007/${studentNewData?.image_name}`} alt={studentNewData?.image_name} />
-                <CFormFloating>
-                    <CFormControl
-                        onChange={(e) => setStudentNewData({...studentNewData, image_name: e.target.files[0]})}
-                        type="file"
-                        id="imagePath"
-                    />
-                    <CFormLabel htmlFor="imagePath" />
-                </CFormFloating>
                 <CButton onClick={onUpdateData} color="success">Update</CButton>
                 <a className="btn btn-primary btnUploadHome" href="/">HomePage</a>
             </CForm>
+
+            <CModal
+                visible={modal}
+                onDismiss={() => setModal(false)}
+                >
+                <CModalHeader>
+                    <CModalTitle>Modal title</CModalTitle>
+                </CModalHeader>
+                <CModalBody>Modal body text goes here.</CModalBody>
+                <CModalFooter>
+                    <CButton color="secondary" onClick={() => setModal(false)}>Close</CButton>
+                    <CButton color="primary" onClick={onDeactiveOrActive}>Save changes</CButton>
+                </CModalFooter>
+            </CModal>
         </div>
     )
 }
