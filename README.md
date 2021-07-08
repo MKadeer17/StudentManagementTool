@@ -2,9 +2,9 @@
 ----
 ## Project Task Is Done Using: ReactJS+NodeJS+MySql
 ----
-### Run the NodeJS Server First:
----
-Command **npm run devStart**
+### Run the NodeJS Server First
+----
+*Command*: **npm run devStart**
 ----
 ### For React JS
 ----
