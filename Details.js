@@ -1,7 +1,7 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router-dom';
-import { CFormControl, CFormFloating, CForm, CFormLabel, CButton, CFormSelect, CFormCheck, CCol} from '@coreui/react'
+import { CFormControl, CFormFloating, CForm, CFormLabel, CFormSelect, CFormCheck, CCol} from '@coreui/react'
 
 function Details() {
     const { id } = useParams();

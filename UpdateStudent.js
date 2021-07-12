@@ -1,6 +1,6 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
-import { Link, useHistory, useParams } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 import { CFormControl, CFormFloating, CForm, CFormLabel, CButton, CFormSelect, CFormCheck, CCol, CModal, 
     CModalHeader, CModalTitle, CModalBody, CModalFooter} from '@coreui/react'
 
@@ -55,7 +55,7 @@ function UpdateStudent() {
                 email: studentNewData.email,
                 phone: studentNewData.phone,
                 address: studentNewData.address,
-                imagePath: studentNewData.image_name?.name,
+                imagePath: studentNewData.image_path?.name || studentNewData.image_name,
                 id: id
             })
             .then((res) => alert("Details Updated Successfully"))
@@ -75,8 +75,6 @@ function UpdateStudent() {
         }
     }
 
-    console.log(studentNewData);
-
     // For Deactive
     const onDeactiveOrActive = () => {
         axios.post(`http://localhost:3007/api/deactiveStudent`, {
@@ -89,20 +87,22 @@ function UpdateStudent() {
     return (
         <div className="studentEditForm">
             <h2>Update Student</h2>
-            <CButton color="warning" onClick={() => setModal(true)}>Deactivate/Active</CButton>
-            <img className="formUpdateImage" src={`http://localhost:3007/${studentNewData?.image_name}`} alt={studentNewData?.image_name} />
-            <CFormFloating>
-                <CFormControl
-                    onChange={(e) => setStudentNewData({...studentNewData, image_path: e.target.files[0], image_name: e.target.files[0].name})}
-                    type="file"
-                    id="imagePath"
-                />
-                <CFormLabel htmlFor="imagePath" />
-            </CFormFloating>
             <CForm className="studentEditForm__data">
+                <div className="studentEditForm__btnDeactive">
+                    <CButton color="warning" onClick={() => setModal(true)}>Deactivate/Active</CButton>
+                </div>
+                <img className="formUpdateImage" src={`http://localhost:3007/${studentNewData?.image_name}`} alt={studentNewData?.image_name} />
+                <CFormFloating>
+                    <CFormControl
+                        onChange={(e) => setStudentNewData({...studentNewData, image_path: e.target.files[0], image_name: e.target.files[0].name})}
+                        type="file"
+                        id="imagePath"
+                    />
+                    <CFormLabel htmlFor="imagePath" />
+                </CFormFloating>
                 <CFormFloating className="mb-3">
                     <CFormControl
-                        value={studentNewData.firstname}
+                        value={studentNewData?.firstname}
                         type="text"
                         id="firstname"
                         placeholder="Enter FirstName"
@@ -113,7 +113,7 @@ function UpdateStudent() {
                 </CFormFloating>
                 <CFormFloating className="mb-3">
                     <CFormControl
-                        value={studentNewData.lastname}
+                        value={studentNewData?.lastname}
                         type="text"
                         id="lastname"
                         placeholder="Enter LastName"
@@ -124,7 +124,7 @@ function UpdateStudent() {
                 </CFormFloating>
                 <CFormFloating className="mb-3">
                     <CFormControl
-                        value={studentNewData.email}
+                        value={studentNewData?.email}
                         type="email"
                         id="email"
                         placeholder="Enter Email Id"
@@ -134,23 +134,23 @@ function UpdateStudent() {
                     <CFormLabel htmlFor="email">Email</CFormLabel>
                 </CFormFloating>
                 <CFormFloating>
-                    <CFormSelect onChange={(e) => setStudentNewData({...studentNewData, grade: e.target.value})} id="grade" aria-label="Select Grade">
-                        <option>Select Grade</option>
+                    <CFormSelect value={studentNewData?.grade} onChange={(e) => setStudentNewData({...studentNewData, grade: e.target.value})} id="grade" aria-label="Select Grade">
+                        <option disabled>Select Grade</option>
                             {
                                 grades.map((grade) => (
-                                    <option key={grade} name="grade" value={grade} selected={studentNewData?.grade === grade}>{grade}</option>
+                                    <option key={grade} name="grade" value={grade}>{grade}</option>
                                 ))
                             }
                     </CFormSelect>
                     <CFormLabel htmlFor="grade">Select Grade</CFormLabel>
                 </CFormFloating>
                 <fieldset className="row mb-3">
-                <span className="col-sm-0 pt-0" />
+                    <span className="col-sm-0 pt-0" />
                     <CCol sm="1">
-                    <legend className="col-form-label col-sm-2 pt-0"><strong>Gender</strong></legend>
+                        <legend className="col-form-label col-sm-2 pt-0"><strong>Gender</strong></legend>
                         <CFormCheck
                             onChange={(e) => setStudentNewData({...studentNewData, gender: e.target.value})}
-                            checked={studentNewData.gender === "Male"}
+                            checked={studentNewData?.gender === "Male"}
                             className="ms-5"
                             type="radio"
                             name="gender"
@@ -159,7 +159,7 @@ function UpdateStudent() {
                         />
                         <CFormCheck
                             onChange={(e) => setStudentNewData({...studentNewData, gender: e.target.value})}
-                            checked={studentNewData.gender === "Female"}
+                            checked={studentNewData?.gender === "Female"}
                             className="ms-5"
                             type="radio"
                             name="gender"
@@ -169,7 +169,7 @@ function UpdateStudent() {
                         <CFormCheck
                             className="ms-5"
                             onChange={(e) => setStudentNewData({...studentNewData, gender: e.target.value})}
-                            checked={studentNewData.gender === "Other"}
+                            checked={studentNewData?.gender === "Other"}
                             type="radio"
                             name="gender"
                             value="Other"
@@ -179,7 +179,7 @@ function UpdateStudent() {
                 </fieldset>
                 <CFormFloating className="mb-3">
                     <CFormControl
-                        value={studentNewData.phone}
+                        value={studentNewData?.phone}
                         onChange={(e) => setStudentNewData({...studentNewData, phone: e.target.value})}
                         type="number"
                         id="phone"
@@ -214,15 +214,16 @@ function UpdateStudent() {
                 <CButton onClick={onUpdateData} color="success">Update</CButton>
                 <a className="btn btn-primary btnUploadHome" href="/">HomePage</a>
             </CForm>
-
+            
+            {/* For Deactive/Active Student Modal  */}
             <CModal
                 visible={modal}
                 onDismiss={() => setModal(false)}
                 >
                 <CModalHeader>
-                    <CModalTitle>Modal title</CModalTitle>
+                    <CModalTitle>Student Deactivate</CModalTitle>
                 </CModalHeader>
-                <CModalBody>Modal body text goes here.</CModalBody>
+                <CModalBody>Are you sure? you want to Deactivate this Student.</CModalBody>
                 <CModalFooter>
                     <CButton color="secondary" onClick={() => setModal(false)}>Close</CButton>
                     <CButton color="primary" onClick={onDeactiveOrActive}>Save changes</CButton>

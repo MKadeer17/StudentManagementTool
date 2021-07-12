@@ -20,7 +20,7 @@ function App() {
       axios.get('http://localhost:3007/api/get').then((res) => {
         setStudentList(res.data);
       })
-  });
+  }, []);
 
   return (
     <Router>

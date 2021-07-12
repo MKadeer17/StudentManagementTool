@@ -108,7 +108,7 @@ function AddStudent() {
                 <CRow className="mb-3">
                     <CFormLabel htmlFor="inputDropDownName3" className="col-sm-4 col-form-label" />
                     <CCol sm="4">
-                    <CFormSelect 
+                    <CFormSelect
                         aria-label="Default select example"
                         onChange={(e) => setStudentData({...studentData, grade: e.target.value})} 
                     >
