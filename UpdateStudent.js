@@ -91,7 +91,7 @@ function UpdateStudent() {
                 <div className="studentEditForm__btnDeactive">
                     <CButton color="warning" onClick={() => setModal(true)}>Deactivate/Active</CButton>
                 </div>
-                <img className="formUpdateImage" src={`http://localhost:3007/${studentNewData?.image_name}`} alt={studentNewData?.image_name} />
+                <img className="formUpdateImage" src={ studentNewData.image_path ? window.URL.createObjectURL(studentNewData.image_path) : `http://localhost:3007/${studentNewData?.image_name}`} alt={studentNewData?.image_name} />
                 <CFormFloating>
                     <CFormControl
                         onChange={(e) => setStudentNewData({...studentNewData, image_path: e.target.files[0], image_name: e.target.files[0].name})}

@@ -195,6 +195,11 @@ function AddStudent() {
                     </CCol>
                 </CRow>
                 <CRow className="mb-3">
+                    {
+                        studentData.imagePath ? (
+                            <img className="formUpdateImage" src={window.URL.createObjectURL(studentData.imagePath)} alt={studentData?.imagePath?.name} />
+                        ) : ''
+                    }
                     <CFormLabel htmlFor="formImage" className="col-sm-4 col-form-label" />
                     <CCol sm="4">
                         <CFormControl 
