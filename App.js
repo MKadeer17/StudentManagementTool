@@ -23,7 +23,7 @@ function App() {
   }, []);
 
   return (
-    <Router>
+    <Router forceRefresh={true}>
       <div className="App">
         <Switch>
           <Route exact path="/details/:id">
